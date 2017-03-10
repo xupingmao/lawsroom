@@ -50,6 +50,7 @@ func run(listen string, origins []string) error {
 		AllowedMethods:   []string{"GET", "POST", "DELETE", "PUT"},
 		AllowCredentials: true,
 	}))
+	n.Use(negroni.NewStatic(assetFS()))
 	n.UseHandler(r)
 
 	return http.ListenAndServe(listen, n)

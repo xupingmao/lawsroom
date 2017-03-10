@@ -23,6 +23,7 @@
     "page": "visionmedia/page.js#^1.7.1",
     "he": "^1.0.0",
     "node-uuid": "broofa/node-uuid#^1.4.7",
-    "bowser": "ded/bowser#^1.2.0"
+    "bowser": "ded/bowser#^1.2.0",
+    "clippings-layout-grid": "^2.2.0"
   }
 }
