@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/codegangsta/cli"
 	"github.com/codegangsta/negroni"
@@ -12,10 +13,11 @@ import (
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "Law"
+	app.Name = "Lawsroom"
 	app.Usage = "Law's room."
 	app.Author = "Cloud"
 	app.Email = "cloud@txthinking.com"
+	app.Version = "0.9.1"
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "listen",
@@ -53,5 +55,12 @@ func run(listen string, origins []string) error {
 	n.Use(negroni.NewStatic(assetFS()))
 	n.UseHandler(r)
 
-	return http.ListenAndServe(listen, n)
+	s := &http.Server{
+		Addr:         listen,
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+		IdleTimeout:  120 * time.Second,
+		Handler:      n,
+	}
+	return s.ListenAndServe()
 }

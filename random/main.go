@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/codegangsta/cli"
 	"github.com/codegangsta/negroni"
@@ -50,5 +51,12 @@ func run(listen string, origins []string) error {
 	}))
 	n.UseHandler(r)
 
-	return http.ListenAndServe(listen, n)
+	s := &http.Server{
+		Addr:         listen,
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+		IdleTimeout:  120 * time.Second,
+		Handler:      n,
+	}
+	return s.ListenAndServe()
 }
