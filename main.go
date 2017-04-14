@@ -30,6 +30,12 @@ func main() {
 		},
 	}
 	app.Action = func(c *cli.Context) error {
+		port := os.Getenv("PORT")
+
+		if port != "" {
+			return run(":" + port, c.GlobalStringSlice("origin"))
+		}
+
 		if c.String("listen") == "" {
 			return cli.NewExitError("Listen address is empty.", 86)
 		}
@@ -59,8 +65,9 @@ func run(listen string, origins []string) error {
 		Addr:         listen,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
-		IdleTimeout:  120 * time.Second,
+		// IdleTimeout:  120 * time.Second,
 		Handler:      n,
 	}
+	// return s.ListenAndServeTLS("server.crt", "server.key");
 	return s.ListenAndServe()
 }

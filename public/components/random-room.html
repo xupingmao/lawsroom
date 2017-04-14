@@ -120,25 +120,46 @@
             ready: function(){
                 this.me = id();
                 this.showData("[NOTICE]: "+this.lang('notice_your_name')+" " + name(this.me));
+                // this.room = new Room({
+                //     signalServer: "wss://lawsroom.com/signal/r/",
+                //     me: this.me,
+                //     iceServers: [{
+                //         urls: ["stun:stun.lawsroom.com:3478"]
+                //     }, {
+                //         urls: "turn:stun.lawsroom.com:3478",
+                //         username: "yiquganchangduan",
+                //         credential: "tianyahechumizhiyin"
+                //     }, {
+                //         urls: "turn:stun.lawsroom.com:3478?transport=tcp",
+                //         username: "yiquganchangduan",
+                //         credential: "tianyahechumizhiyin"
+                //     }, {
+                //         urls: "turn:stun.lawsroom.com:3478?transport=udp",
+                //         username: "yiquganchangduan",
+                //         credential: "tianyahechumizhiyin"
+                //     }]
+                // });
+
                 this.room = new Room({
-                    signalServer: "wss://lawsroom.com/signal/r/",
+                    signalServer: "ws://localhost:1906/signal/r/",
                     me: this.me,
                     iceServers: [{
-                        urls: ["stun:stun.lawsroom.com:3478"]
+                        urls: ["stun:localhost:3478"]
                     }, {
-                        urls: "turn:stun.lawsroom.com:3478",
+                        urls: "turn:localhost:3478",
                         username: "yiquganchangduan",
                         credential: "tianyahechumizhiyin"
                     }, {
-                        urls: "turn:stun.lawsroom.com:3478?transport=tcp",
+                        urls: "turn:localhost:3478?transport=tcp",
                         username: "yiquganchangduan",
                         credential: "tianyahechumizhiyin"
                     }, {
-                        urls: "turn:stun.lawsroom.com:3478?transport=udp",
+                        urls: "turn:localhost:3478?transport=udp",
                         username: "yiquganchangduan",
                         credential: "tianyahechumizhiyin"
                     }]
                 });
+
                 this.room.on("signal_open", this.signal_open.bind(this));
                 this.room.on("signal_close", this.signal_close.bind(this));
                 this.room.on("signal_error", this.signal_error.bind(this));
