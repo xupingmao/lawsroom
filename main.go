@@ -30,6 +30,7 @@ func main() {
 		},
 	}
 	app.Action = func(c *cli.Context) error {
+		// SAE的端口号
 		port := os.Getenv("PORT")
 
 		if port != "" {

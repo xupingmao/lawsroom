@@ -124,6 +124,11 @@
                 var address = location.host;
                 var protocol = "wss://";
                 
+                //  判断是本地调试还是https
+                if (/localhost|127\.0\.0\.1/.test(address)) {
+                    var protocol = "ws://";
+                } 
+                
                 this.room = new Room({
                     signalServer: protocol + address + "/signal/_/",
                     me: this.me,
